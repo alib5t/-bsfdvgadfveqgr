@@ -1,13 +1,35 @@
+
 workflows:
-  ios-app:
-    name: iOS APP Build
+  ios-app-unsigned:
+    name: iOS APP - Unsigned
+    max_build_duration: 120
     instance_type: mac_mini_m2
-    max_build_duration: 60
+
     environment:
       flutter: stable
       xcode: 26.5
+      cocoapods: default
+
     scripts:
-      - name: Build iOS app
-        script: flutter build ios --release
+      - name: Get Flutter packages
+        script: flutter pub get
+
+      - name: Prepare iOS project
+        script: |
+          if [ ! -f ios/Podfile ]; then
+            flutter create --platforms=ios .
+          fi
+
+      - name: Install iOS dependencies
+        script: |
+          cd ios
+          pod install
+          cd ..
+
+      - name: Build unsigned iOS app
+        script: |
+          flutter build ios --release --no-codesign
+
     artifacts:
-      - build/ios/iphoneos/Runner.app
+      - build/ios/iphoneos/*.app
+      - /tmp/xcodebuild_logs/*.log
