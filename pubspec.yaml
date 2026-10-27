@@ -1,0 +1,49 @@
+name: music_player
+description: Basit ve renkli bir müzik çalar (iOS ve Android).
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  just_audio: ^0.9.40          # ses oynatma
+  just_audio_background: ^0.0.1-beta.13  # arka planda / kilit ekranında çalma
+  file_picker: ^13.0.0         # dosya seçme
+  path_provider: ^2.1.4        # uygulama klasörü
+  path: ^1.9.0
+  shared_preferences: ^2.3.2   # arşiv listesini saklama
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.1
+  flutter_native_splash: ^2.4.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/
+
+# --- Uygulama ikonu ---
+# assets/icon/ klasöründeki icon.png ve icon_foreground.png hazır, sadece şunu çalıştır:
+#   dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#FFF6CC"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  remove_alpha_ios: true
+
+# --- Açılış ekranı (beyaz) ---
+# Ardından: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
+  android_12:
+    color: "#FFFFFF"
